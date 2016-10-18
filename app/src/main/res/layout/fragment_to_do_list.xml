@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.clara.simple_todo_list_with_fragments.ToDoListFragment"
-             android:background="#73AC96">
+             android:background="@color/todoItemText">
 
     <ListView
         android:layout_width="match_parent"

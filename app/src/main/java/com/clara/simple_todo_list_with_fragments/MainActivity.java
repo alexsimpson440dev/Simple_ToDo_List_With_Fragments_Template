@@ -40,12 +40,14 @@ public class MainActivity extends AppCompatActivity implements
 
 			AddToDoItemFragment addNewFragment = AddToDoItemFragment.newInstance();
 			ToDoListFragment listFragment = ToDoListFragment.newInstance(mTodoItems);
+			ToDoItemDetailFragment detailFragment = ToDoItemDetailFragment.newInstance(new ToDoItem("", false));
 
 			FragmentManager fm = getSupportFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
 
 			ft.add(R.id.add_todo_view_container, addNewFragment, ADD_NEW_FRAG_TAG);
 			ft.add(R.id.todo_list_view_container, listFragment, LIST_FRAG_TAG);
+			ft.add(R.id.todo_detail_view_container, detailFragment);
 
 			ft.commit();
 
@@ -82,14 +84,11 @@ public class MainActivity extends AppCompatActivity implements
 
 	@Override
 	public void itemSelected(ToDoItem selected) {
-		//Show ToDoDetailFragment for this Todo item
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-		//create a new detail fragment. add it to the activity
-		ToDoItemDetailFragment detailFragment = ToDoItemDetailFragment.newInstance(selected);
-		ft.add(android.R.id.content, detailFragment);
-		//add to the back stack so if the user presses back it will revert to this transaction
-		ft.addToBackStack(DETAIL_FRAG_TAG);
+		//Replace the previous Detail fragment with a new detail fragment, showing the selected to do item
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.replace(R.id.todo_detail_view_container, ToDoItemDetailFragment.newInstance(selected));
 
 		ft.commit();
 	}
